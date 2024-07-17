@@ -13,7 +13,7 @@ export const register = async(req, res)=>{
 
 export const login = async(req, res)=>{
     try {
-        const response = await loginUser (req.body)
+        const response = await loginUser(req.body)
         res.send(response);
     }catch(err){
         console.log( err);
