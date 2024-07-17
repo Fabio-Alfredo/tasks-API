@@ -1,5 +1,6 @@
 import { userModel } from "../models/user.model.js";
-import { hashPassword } from "../utils/password.handle.js";
+import { hashPassword, comparePassword  } from "../utils/password.handle.js";
+import {sign} from '../utils/jwt.handle.js';
 
 export const registerUser = async ({name, email, password}) => {
     const checkUser = await userModel.findOne({ email:email });
@@ -11,6 +12,16 @@ export const registerUser = async ({name, email, password}) => {
     return newUser;
 }
 
+export const loginUser = async ({email, password})=>{
+    
+    const checkUser = await userModel.findOne({ email });
+    if (!checkUser) return { error: "User not found" };
 
+    const isCorrect = await comparePassword(password, checkUser.password);
+    if (!isCorrect) return { error: "Invalid credentials" };
+
+    const token = sign({ email: checkUser.email });
+    return { token };
+}
 
 
