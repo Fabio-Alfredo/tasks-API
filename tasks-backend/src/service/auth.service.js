@@ -21,7 +21,7 @@ export const loginUser = async ({email, password})=>{
     const isCorrect = await comparePassword(password, checkUser.password);
     if (!isCorrect) throw new httpError("Invalid credentials", 401);
 
-    const token = sign({ email: checkUser.email });
+    const token = sign({ email: checkUser.email, id: checkUser._id });
     return { token };
 }
 

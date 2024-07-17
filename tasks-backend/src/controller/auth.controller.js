@@ -16,7 +16,7 @@ export const login = async(req, res)=>{
         const response = await loginUser (req.body)
         res.send(response);
     }catch(err){
-        console.log("error :) " + err.message);
+        console.log( err);
         handleHttpError(res, err.message, err);
     }
 }
